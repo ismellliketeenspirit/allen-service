@@ -9356,7 +9356,10 @@ const fakeProductData = [
 const insertProductQnAs = () => {
   mongo.questions
     .create(fakeProductData)
-    .then(() => mongo.db.close())
+    .then(() => {
+      console.log('hi');
+      mongo.db.close();
+    })
     .catch(err => console.log(err));
 };
 

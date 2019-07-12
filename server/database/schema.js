@@ -3,15 +3,15 @@ const mongoose = require("mongoose");
 // working with env variables
 require('dotenv').config()
 
-mongoose.connect(process.env.MONGOURI, {
-  useNewUrlParser: true
-});
-
-
-// mongoose.connect('mongodb://localhost:27017/QuestionAndAnswers'
-//   , {
+// mongoose.connect(process.env.MONGOURI, {
 //   useNewUrlParser: true
 // });
+
+
+mongoose.connect('mongodb://localhost:27017/QuestionAndAnswers'
+  , {
+  useNewUrlParser: true
+});
 
 const Schema = mongoose.Schema;
 

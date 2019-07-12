@@ -9,7 +9,7 @@
   },
   "scripts": {
     "build": "webpack --mode production",
-    "dev" : "webpack -d --watch --mode development", 
+    "dev": "webpack -d --watch --mode development",
     "start": "nodemon server/app.js",
     "start-pro": "node server/app.js",
     "start-dev": "concurrently \" npm run build \" \" npm run start \"",
