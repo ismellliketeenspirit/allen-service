@@ -7,6 +7,9 @@ require('dotenv').config()
 //   useNewUrlParser: true
 // });
 
+// query for question votes greater than 3
+// db.questions.find({ "questions.votes" : { $gte: 3 } } )
+
 
 mongoose.connect('mongodb://localhost:27017/QuestionAndAnswers'
   , {
@@ -78,5 +81,5 @@ module.exports = {
   db,
   questions,
   getProductQuestions,
-  updateQuestionVote
+  updateQuestionVote,
 };

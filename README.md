@@ -103,3 +103,24 @@ Nodemon can also be installed locally as a dev dependency:
 npn install --save--dev nodemon
 ```
 
+API Endpoints
+
+Get all products with their questions, answers, and votes
+```sh
+GET /products/questions/:productId
+```
+
+Creates a new product
+```sh
+POST /products/questions
+```
+
+Updates count of votes given a particular product id
+```sh
+PUT /products/questions/votes/:question_id
+```
+
+Deletes product along with their questions, answers, and votes
+```sh
+DELETE /products/questions/:productId
+```
