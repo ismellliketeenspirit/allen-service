@@ -77,9 +77,35 @@ const updateQuestionVote = (question_Id, body, callback) => {
   });
 };
 
+
+const createProduct = (callback) => {
+
+  questions.count({}, (err, count) => {
+    if (err) {
+      console.log(err);
+    } else {
+      const newId = Number(count) + 1;
+      const newProduct = new questions({ product: newId});
+      newProduct.save(err => console.log(err));
+      callback('record inserted');
+    }
+  });
+}
+
+const deleteProduct = (id) => {
+  questions.deleteOne({ product: id }, (err) => {
+    return err;
+  })
+}
+
+
+
+
 module.exports = {
   db,
   questions,
   getProductQuestions,
   updateQuestionVote,
+  createProduct,
+  deleteProduct,
 };

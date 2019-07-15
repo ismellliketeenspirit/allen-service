@@ -24,9 +24,8 @@ app.use(
 
 // CREATE
 app.post('/products/questions', (req, res) => {
-  db.createProduct(req.params.productId, (data) => {
-    res.send('product created');
-  });
+  db.createProduct();
+  res.send(data);
 });
 
 // READ
@@ -46,9 +45,8 @@ app.put('/ask/vote/question/:question_id', (req, res) => {
 
 // DELETE
 app.delete('/products/questions/:productId', (req, res) => {
-  db.deleteProduct(req.params.productId, (data) => {
-    res.send('deleted');
-  });
+  db.deleteProduct(req.params.productId);
+  res.send(`record number ${req.params.productId} deleted`);
 });
 
 app.listen(PORT, () => console.log(`Listening on port ${PORT}`));
