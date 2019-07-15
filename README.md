@@ -103,7 +103,7 @@ Nodemon can also be installed locally as a dev dependency:
 npn install --save--dev nodemon
 ```
 
-API Endpoints
+## API Endpoints
 
 Get all products with their questions, answers, and votes
 ```sh
