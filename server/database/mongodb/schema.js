@@ -78,7 +78,7 @@ const updateQuestionVote = (question_Id, body, callback) => {
 };
 
 
-const createProduct = (callback) => {
+const createProduct = () => {
 
   questions.count({}, (err, count) => {
     if (err) {

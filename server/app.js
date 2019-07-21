@@ -3,7 +3,7 @@ const bodyParser = require('body-parser');
 const path = require('path');
 const morgan = require('morgan');
 const app = express();
-const db = require('../server/database/schema.js');
+const db = require('../server/database/mongodb/schema.js');
 const cors = require('cors');
 
 const PORT = process.env.PORT || 3000;
