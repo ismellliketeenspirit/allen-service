@@ -1,5 +1,3 @@
-// const db = require('./app.js');
-
 const faker = require('faker');
 const pgp = require('pg-promise')();
 const connection = {
@@ -10,7 +8,7 @@ const connection = {
   port: 5432,
 };
 const db = pgp(connection);
-const start = new Date().getTime();
+const startTimer = new Date().getTime();
 
 // create data
 const generateData = (numberOfDataPoints) => {
@@ -33,9 +31,9 @@ db.tx(async (t) => {
   )
   .catch((e) => console.log(e))
   .finally(() => {
-    const end = new Date().getTime();
+    const endTimer = new Date().getTime();
     console.log(
-      `[Execution Time]: ${Math.round((end - start) / 1000, 2)} seconds`,
+      `[Execution Time]: ${Math.round((endTimer - startTimer) / 1000, 2)} seconds`,
     );
     pgp.end();
   });
