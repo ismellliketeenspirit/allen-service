@@ -21,6 +21,7 @@ const generateData = (numberOfDataPoints) => {
   return pgp.helpers.insert(data, ['id', 'name'], 'product');
 };
 
+// load data
 db.tx(async (t) => {
   for (let i = 0; i < 1000; i++) {
     await t.none(generateData(10000));
