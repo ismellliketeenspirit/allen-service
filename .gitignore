@@ -5,7 +5,10 @@ node_modules
 bundle.js
 
 #vscode
-.vscode 
+.vscode
 
-# env 
+# env
 .env
+
+# 10M csv file
+data.csv

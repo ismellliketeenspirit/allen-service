@@ -9,12 +9,14 @@ const connection = {
 };
 const db = pgp(connection);
 const startTimer = new Date().getTime();
+let idCount = 0;
 
 // create data
 const generateData = (numberOfDataPoints) => {
   const data = [];
   for (let i = 0; i < numberOfDataPoints; i++) {
-    data.push({ id: i, name: faker.lorem.sentence() });
+    idCount++;
+    data.push({ id: idCount, name: faker.lorem.sentence() });
   }
   return pgp.helpers.insert(data, ['id', 'name'], 'product');
 };
