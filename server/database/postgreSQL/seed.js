@@ -11,14 +11,29 @@ const db = pgp(connection);
 const startTimer = new Date().getTime();
 let idCount = 0;
 
+// id INTEGER NOT NULL,
+// question VARCHAR(512) NOT NULL,
+// answer VARCHAR(512) NOT NULL,
+// created_date DATE NOT NULL,
+// username VARCHAR(32) NOT NULL,
+// votes INTEGER DEFAULT 0
+
+
 // create data
 const generateData = (numberOfDataPoints) => {
   const data = [];
   for (let i = 0; i < numberOfDataPoints; i++) {
     idCount++;
-    data.push({ id: idCount, name: faker.lorem.sentence() });
+    data.push({
+      id: idCount,
+      question: faker.lorem.words(5),
+      answer: faker.lorem.sentence(),
+      created_date: faker.date.past(2),
+      username: faker.internet.userName(),
+      votes: Math.floor(Math.random() * 1000),
+    });
   }
-  return pgp.helpers.insert(data, ['id', 'name'], 'product');
+  return pgp.helpers.insert(data, ['id', 'question', 'answer', 'created_date', 'username', 'votes'], 'product');
 };
 
 // load data

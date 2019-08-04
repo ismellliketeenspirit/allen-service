@@ -10,15 +10,7 @@ const client = new cassandra.Client({
   keyspace: 'sdc',
   localDataCenter: 'datacenter1',
 });
-
-// const generateData = (numberOfDataPoints) => {
-//   const data = [];
-//   for (let i = 0; i < numberOfDataPoints; i++) {
-//     idCount++;
-//     data.push({ id: idCount, name: faker.lorem.sentence() });
-//   }
-//   return pgp.helpers.insert(data, ['id', 'name'], 'product');
-// };
+const query = 'SELECT * FROM sdc.product';
 
 client
   .execute(query)

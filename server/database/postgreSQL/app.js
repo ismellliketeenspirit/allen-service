@@ -17,8 +17,12 @@ const createTable = () => {
   const queryText =
     `CREATE TABLE IF NOT EXISTS
       product(
-        id INTEGER,
-        name VARCHAR(128) NOT NULL
+        id INTEGER NOT NULL,
+        question VARCHAR(512) NOT NULL,
+        answer VARCHAR(512) NOT NULL,
+        created_date DATE NOT NULL,
+        username VARCHAR(32) NOT NULL,
+        votes INTEGER DEFAULT 0
       )`;
 
   pool
