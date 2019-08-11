@@ -37,6 +37,7 @@ const createTable = () => {
     });
 };
 
+// insert records
 const insertRecords = (id, productName) => {
   const queryText = `INSERT INTO product VALUES (${id}, '${productName}')`;
   pool
@@ -44,7 +45,32 @@ const insertRecords = (id, productName) => {
     .catch(e => console.log(e.stack));
 };
 
+// fetch records
+const getProductQuestions = (id, callback) => {
+  const queryText = `SELECT * FROM PRODUCT WHERE id = ${id}`;
+
+  pool
+    .query(queryText)
+    .then((data) => callback(data.rows))
+    .catch(e => console.log(e));
+}
+
+const updateQuestionVote = (id, body) => {
+
+  const client_question_id = body.product;
+  const vote = body.vote;
+  console.log(`[Vote]: ${vote}`);
+  const queryText = `UPDATE PRODUCT SET VOTES = ${vote} WHERE ID = ${client_question_id}`
+
+  pool
+    .query(queryText)
+    .then(() => console.log(`Question ${vote} updated!`))
+    .catch(e => console.log(e));
+}
+
 module.exports = {
   createTable,
   insertRecords,
+  getProductQuestions,
+  updateQuestionVote,
 }

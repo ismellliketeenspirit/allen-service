@@ -2,7 +2,7 @@ const fs = require('fs');
 const faker = require('faker');
 const createCsvWriter = require('csv-writer').createObjectCsvWriter;
 const csvWriter = createCsvWriter({
-  path: 'testOne.csv',
+  path: 'testTwo.csv',
   header: [
     { id: 'id' },
     { id: 'name' },
@@ -23,5 +23,5 @@ function generateData(numberOfRecords) {
 }
 
 csvWriter
-  .writeRecords(generateData(100))
+  .writeRecords(generateData(5))
   .then(() => console.log('csv file written successfully'));

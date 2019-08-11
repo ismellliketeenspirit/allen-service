@@ -1,14 +1,13 @@
-import React from "react";
-import axios from "axios";
-import moment from "moment";
-import Search from "./Search.jsx";
-import "../main.css";
+import React from 'react';
+import axios from 'axios';
+import moment from 'moment';
+import Search from './Search.jsx';
+import '../main.css';
 
-import Votes from "./Votes.jsx";
-import Questions from "./Questions.jsx";
-import Answers from "./Answers.jsx";
+import Votes from './Votes.jsx';
+import Questions from './Questions.jsx';
+import Answers from './Answers.jsx';
 import SearchResults from './SearchResults.jsx';
-
 
 class App extends React.Component {
   constructor(props) {
@@ -17,7 +16,7 @@ class App extends React.Component {
       product: {},
       searchRequest: false,
       searchResult: [],
-      searchQuery: ''
+      searchQuery: '',
     };
     this.changeVote = this.changeVote.bind(this);
     this.searchQueryResults = this.searchQueryResults.bind(this);
@@ -29,15 +28,15 @@ class App extends React.Component {
     // without proxy = .get(`/questions/product/${window.location.href.split('/')[4] || 1}`)
 
     // with AWS = .get(`http://ec2-18-220-91-195.us-east-2.compute.amazonaws.com:80/questions/product/${window.location.href.split('/')[4] || 1}`)
-    let id = window.location.href.split('/')[4] || 1
-    if (id !== "/") {
+    let id = window.location.href.split('/')[4] || 1;
+    if (id !== '/') {
       axios
-        .get(`/questions/product/${window.location.href.split('/')[4] || 1}`)
-        .then(response => {
-          // console.log(response, `this is is going well`)
+        // .get(`/questions/product/${window.location.href.split('/')[4] || 1}`)
+        .get(`/questions/product/4`)
+        .then((response) => {
           this.setState({ product: response.data });
         })
-        .catch(err => {
+        .catch((err) => {
           console.log(err);
         });
     }
@@ -53,15 +52,15 @@ class App extends React.Component {
     axios
       .put(`/ask/vote/question/${question_id}`, {
         vote: voteValue,
-        product: product_id
+        product: product_id,
       })
-      .then(response => {
+      .then((response) => {
         /////
         const questionId = response.data.question_id;
         const voteValue = response.data.votes;
         const questions = [...this.state.product.questions];
         // find the question_id and update the vote value
-        questions.forEach(question => {
+        questions.forEach((question) => {
           if (question.question_id === questionId) {
             question.votes = voteValue;
           }
@@ -72,9 +71,9 @@ class App extends React.Component {
         ///// working with response
 
         // Change State Based on Votes
-        const {product, _id, __v}= this.state.product;
+        const { product, _id, __v } = this.state.product;
 
-        const updProduct ={};
+        const updProduct = {};
         updProduct.product = product;
         updProduct._id = _id;
         updProduct.__v = __v;
@@ -90,83 +89,88 @@ class App extends React.Component {
       this.setState({
         searchRequest: false,
         searchResult: result,
-        searchQuery: ''
-      })
-    } else {
-      this.setState({
-        searchRequest: true,
-        searchResult: result,
-        searchQuery: query
-      }, () => {
+        searchQuery: '',
       });
+    } else {
+      this.setState(
+        {
+          searchRequest: true,
+          searchResult: result,
+          searchQuery: query,
+        },
+        () => {},
+      );
     }
   }
-
 
   render() {
     const { product } = this.state;
     const data = this.state.product.questions;
 
-    if (JSON.stringify(product) === "{}") {
-      return (
-        <>
-        </>
-      )
+    if (JSON.stringify(product) === '{}') {
+      return <></>;
     }
 
     return (
       <>
-        <div id="ask_lazy_load_div">
-          <div className="askInlineWidget">
-            <hr className="a-divider-normal" />
-            <h2 className="a-color-base askWidgetHeader">
+        <div id='ask_lazy_load_div'>
+          <div className='askInlineWidget'>
+            <hr className='a-divider-normal' />
+            <h2 className='a-color-base askWidgetHeader'>
               Customers questions & answers
             </h2>
-            <div className="askWidgetQuestions askLiveSearchHide">
-              <div className="a-row a-spacing-small a-spacing-top-base">
-                <div className="a-section askBtfSearchViewContent">
-                  <Search questions={data} searchQueryResults={this.searchQueryResults}/>
+            <div className='askWidgetQuestions askLiveSearchHide'>
+              <div className='a-row a-spacing-small a-spacing-top-base'>
+                <div className='a-section askBtfSearchViewContent'>
+                  <Search
+                    questions={data}
+                    searchQueryResults={this.searchQueryResults}
+                  />
                 </div>
               </div>
               {this.state.searchRequest ? (
-                <SearchResults searchResult={this.state.searchResult} query={this.state.searchQuery}/>
+                <SearchResults
+                  searchResult={this.state.searchResult}
+                  query={this.state.searchQuery}
+                />
               ) : (
                 <div
-                  className="a-section a-spacing-none askBtfTopQuestionsContainer"
-                  style={{ textAlign: "center" }}
+                  className='a-section a-spacing-none askBtfTopQuestionsContainer'
+                  style={{ textAlign: 'center' }}
                 >
-                  <div className="a-section askTeaserQuestions">
-                    {this.state.product.questions.length === 0 ? (
-                      <div className="askQuestionExample">
-                        <div className="askTypicalExample">
+                  <div className='a-section askTeaserQuestions'>
+                    {/* {this.state.product.questions.length === 0 ? ( */}
+                    {this.state.product.length === 0 ? (
+                      <div className='askQuestionExample'>
+                        <div className='askTypicalExample'>
                           Typical questions asked about products:
                         </div>
-                        <div className="askExampleQuestion">
+                        <div className='askExampleQuestion'>
                           &nbsp;-&nbsp; Is the item durable?
                         </div>
-                        <div className="askExampleQuestion">
+                        <div className='askExampleQuestion'>
                           &nbsp;-&nbsp; Is this item easy to use?
                         </div>
-                        <div className="askExampleQuestion">
+                        <div className='askExampleQuestion'>
                           &nbsp;-&nbsp; What are the dimensions of this item?
                         </div>
                       </div>
                     ) : (
-                      this.state.product.questions.map(question => (
+                      this.state.product.map((question, key) => (
                         <div
-                          key={question._id}
-                          className="a-fixed-left-grid a-spacing-base"
+                          key={key}
+                          className='a-fixed-left-grid a-spacing-base'
                         >
                           <div
-                            className="a-fixed-left-grid-inner"
-                            style={{ paddingLeft: "65px" }}
+                            className='a-fixed-left-grid-inner'
+                            style={{ paddingLeft: '65px' }}
                           >
                             <div
-                              className="a-fixed-left-grid-col a-col-left"
+                              className='a-fixed-left-grid-col a-col-left'
                               style={{
-                                width: "65px",
-                                marginLeft: "-65px",
-                                float: "left"
+                                width: '65px',
+                                marginLeft: '-65px',
+                                float: 'left',
                               }}
                             >
                               <Votes
@@ -178,11 +182,16 @@ class App extends React.Component {
                             </div>
 
                             <div
-                              className="a-fixed-left-grid-col a-col-right"
-                              style={{ paddingLeft: "1%", float: "left" }}
+                              className='a-fixed-left-grid-col a-col-right'
+                              style={{ paddingLeft: '1%', float: 'left' }}
                             >
-                              <Questions question={question} />
-                              <Answers answers={question.answers} questionId={question.question_id} />
+                                <Questions question={question} />
+                              <Answers
+                                answers={question.answer}
+                                username={question.username}
+                                questionId={question.id}
+                                createdDate={question.created_date}
+                              />
                             </div>
                           </div>
                         </div>
@@ -194,7 +203,7 @@ class App extends React.Component {
             </div>
           </div>
         </div>
-        <hr className="a-spacing-large a-divider-normal" />
+        <hr className='a-spacing-large a-divider-normal' />
       </>
     );
   }

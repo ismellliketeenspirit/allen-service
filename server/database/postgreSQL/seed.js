@@ -9,21 +9,12 @@ const connection = {
 };
 const db = pgp(connection);
 const startTimer = new Date().getTime();
-let idCount = 0;
-
-// id INTEGER NOT NULL,
-// question VARCHAR(512) NOT NULL,
-// answer VARCHAR(512) NOT NULL,
-// created_date DATE NOT NULL,
-// username VARCHAR(32) NOT NULL,
-// votes INTEGER DEFAULT 0
-
 
 // create data
 const generateData = (numberOfDataPoints) => {
   const data = [];
   for (let i = 0; i < numberOfDataPoints; i++) {
-    idCount++;
+    const idCount = Math.floor(Math.random() * 1000000);
     data.push({
       id: idCount,
       question: faker.lorem.words(5),
@@ -38,9 +29,9 @@ const generateData = (numberOfDataPoints) => {
 
 // load data
 db.tx(async (t) => {
-  for (let i = 0; i < 1000; i++) {
-    await t.none(generateData(10000));
-    console.log(`Batch ${i + 1} of 1000 Completed`);
+  for (let i = 0; i < 100; i++) {
+    await t.none(generateData(100000));
+    console.log(`Batch ${i + 1} of 100 Completed`);
   }
 })
   .then(() =>

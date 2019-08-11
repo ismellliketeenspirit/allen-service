@@ -7,7 +7,9 @@ class Answers extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      answers: [this.props.answers[0]],
+      answers: [this.props.answers],
+      username: this.props.username,
+      createdDate: this.props.createdDate,
       show: true
     };
   }
@@ -15,7 +17,7 @@ class Answers extends Component {
   render() {
     const {answers} = this.state;
     const nthAnswers = this.props.answers.length - 1;
-    
+
     // all answers except the first 1
     const answerForCollaps = [...this.props.answers];
     answerForCollaps.splice(0,1);
@@ -31,21 +33,21 @@ class Answers extends Component {
             >
               <span className="a-text-bold">Answer:</span>
             </div>
-            {answers.map(answer => (
-              <div key={answer._id}
+            {answers.map((answer, id) => (
+              <div key={id}
                 className="a-fixed-left-grid-col a-col-right"
                 style={{ paddingLeft: "0%", float: "left", textAlign: 'left' }}
               >
-                <span>{answer.answer}</span>
+                <span>{answer}</span>
                 <br />
                 <span className="a-color-tertiary">
-                  By {answer.user} on {moment(answer.createdAt).format("LL")}
+                  By {this.state.username} on {moment(this.state.createdDate).format("LL")}
                 </span>
                 <br />
                 <div>
                   <CollapseAnswers nthAnswers={nthAnswers} id={answer._id} answersExceptOne={answerForCollaps}/>
                 </div>
-              </div> 
+              </div>
             ))}
           </div>
         </div>
