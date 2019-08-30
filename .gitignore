@@ -12,3 +12,6 @@ bundle.js
 
 # 10M csv file
 data.csv
+
+# new relic file
+newrelic.js
